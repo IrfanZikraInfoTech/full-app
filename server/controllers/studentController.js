@@ -1,5 +1,7 @@
 const Student = require("../models/Student");
 const Result = require("../models/Result");
+const mongoose = require("mongoose"); // Add this line
+
 
 exports.getStudents = async (req, res) => {
   try {
