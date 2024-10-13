@@ -14,14 +14,14 @@ exports.getStudents = async (req, res) => {
 
 // Add a student
 exports.addStudent = async (req, res) => {
-  const { name, email, registrationNumber, aadharNumber } = req.body;
+  const { name, email, registrationNumber, addharnumber } = req.body; // Use "addharnumber" here
 
   try {
     const newStudent = new Student({
       name,
       email,
       registration_number: registrationNumber,
-      aadhar_number: aadharNumber,
+      aadhar_number: addharnumber, // Use "addharnumber" here
     });
 
     await newStudent.save(); // Save student to MongoDB
