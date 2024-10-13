@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // Your React frontend
+    origin: "https://full-app-2jrg.vercel.app", // Your React frontend
     credentials: true, // This allows credentials like cookies to be sent with the request
   })
 );

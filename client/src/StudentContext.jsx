@@ -40,7 +40,7 @@ export const StudentProvider = ({ children }) => {
         // If auth-token is present, make the API request
         if (authToken) {
           const response = await axios.get(
-            "http://localhost:5000/api/students",
+            "https://full-app-8iz6.vercel.app/api/students",
             {
               headers: {
                 Authorization: `Bearer ${authToken}`,

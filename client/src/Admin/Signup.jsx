@@ -22,7 +22,7 @@ const AdminSignup = () => {
     try {
       // Post to Node.js signup endpoint
       const response = await axios.post(
-        "http://localhost:5000/api/signup",
+        "https://full-app-8iz6.vercel.app/api/signup",
         {
           name,
           email,

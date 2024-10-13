@@ -22,7 +22,7 @@ const AddStudent = () => {
     try {
       const token = localStorage.getItem("auth-token"); // Retrieve token if using authentication
       const response = await axios.post(
-        "http://localhost:5000/api/students",
+        "https://full-app-8iz6.vercel.app/api/students",
         {
           name: formData.name,
           email: formData.email,

@@ -19,7 +19,7 @@ const Studentdetails = () => {
       try {
         const token = localStorage.getItem("auth-token"); // Get the auth token
         const response = await axios.get(
-          `http://localhost:5000/api/results/${id}`, // Fetch results by student ID
+          `https://full-app-8iz6.vercel.app/api/results/${id}`, // Fetch results by student ID
           {
             headers: {
               Authorization: `Bearer ${token}`, // Send token in Authorization header
@@ -45,7 +45,7 @@ const Studentdetails = () => {
   const handleDelete = async (resultId) => {
     try {
       const token = localStorage.getItem("auth-token");
-      await axios.delete(`http://localhost:5000/api/results/${resultId}`, {
+      await axios.delete(`https://full-app-8iz6.vercel.app/api/results/${resultId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

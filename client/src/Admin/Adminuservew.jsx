@@ -26,7 +26,7 @@ const Adminuservew = () => {
       try {
         const token = localStorage.getItem("auth-token"); // Get auth token
         const response = await axios.get(
-          `http://localhost:5000/api/results/${id}`, // Fetch result by result ID
+          `https://full-app-8iz6.vercel.app/api/results/${id}`, // Fetch result by result ID
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add auth header

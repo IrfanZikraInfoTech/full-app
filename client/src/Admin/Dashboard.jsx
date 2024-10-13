@@ -12,7 +12,7 @@ const Dashboard = () => {
       const token = localStorage.getItem("auth-token"); // Retrieve token
 
       // Send DELETE request to delete the student
-      await axios.delete(`http://localhost:5000/api/students/${id}`, {
+      await axios.delete(`https://full-app-8iz6.vercel.app/api/students/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Send token in the Authorization header
         },
@@ -37,7 +37,7 @@ const Dashboard = () => {
       // Check if the token exists and send a logout request
       if (token) {
         await axios.post(
-          "http://localhost:5000/api/logout",
+          "https://full-app-8iz6.vercel.app/api/logout",
           {},
           {
             headers: {
