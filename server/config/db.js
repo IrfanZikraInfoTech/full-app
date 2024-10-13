@@ -1,18 +1,27 @@
-const mysql = require("mysql2");
+const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
+// Load environment variables from .env file
 dotenv.config();
 
-// Create a pool connection to the database
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-});
+// MongoDB connection string from environment variables
+const mongoURI =
+  process.env.MONGO_URI || "mongodb://localhost:27017/mydatabase"; // Default to localhost for development
 
-// Export the pool with promise support for async/await
-module.exports = pool.promise();
+// Function to connect to MongoDB
+const connectDB = async () => {
+  try {
+    // Use Mongoose to connect to MongoDB
+    await mongoose.connect(mongoURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to MongoDB successfully.");
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+    process.exit(1); // Exit the process with failure
+  }
+};
+
+// Export the connection function
+module.exports = connectDB;

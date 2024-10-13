@@ -1,28 +1,36 @@
-const pool = require("../config/db");
+const Student = require("../models/Student");
+const Result = require("../models/Result");
 
-// Get all students
 exports.getStudents = async (req, res) => {
   try {
-    const [students] = await pool.query("SELECT * FROM students");
-    res.send(students);
+    const students = await Student.find(); // Fetch all students
+    res.status(200).json(students);
   } catch (err) {
-    res.status(400).send(err);
+    res
+      .status(400)
+      .json({ error: "Failed to fetch students", details: err.message });
   }
 };
 
 // Add a student
 exports.addStudent = async (req, res) => {
-  const { name, email, registrationNumber, addharnumber } = req.body; // This matches the frontend
+  const { name, email, registrationNumber, aadharNumber } = req.body;
 
   try {
-    const result = await pool.query(
-      "INSERT INTO students (name, email, registration_number, aadhar_number) VALUES (?, ?, ?, ?)",
-      [name, email, registrationNumber, addharnumber] // Pass 'addharnumber'
-    );
-    res.send("Student added");
+    const newStudent = new Student({
+      name,
+      email,
+      registration_number: registrationNumber,
+      aadhar_number: aadharNumber,
+    });
+
+    await newStudent.save(); // Save student to MongoDB
+    res.status(201).json({ message: "Student added successfully" });
   } catch (err) {
-    console.error("Error adding student:", err); // Log the error for more details
-    res.status(400).send("Bad Request: Invalid input data.");
+    console.error("Error adding student:", err);
+    res
+      .status(400)
+      .json({ error: "Bad Request: Invalid input data", details: err.message });
   }
 };
 
@@ -31,15 +39,17 @@ exports.deleteStudent = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await pool.query("DELETE FROM students WHERE id = ?", [id]);
+    const result = await Student.findByIdAndDelete(id); // Find and delete student by ID
 
-    if (result[0].affectedRows === 0) {
-      return res.status(404).send("Student not found");
+    if (!result) {
+      return res.status(404).json({ message: "Student not found" });
     }
 
-    res.send(`Student with ID ${id} deleted`);
+    res.status(200).json({ message: `Student with ID ${id} deleted` });
   } catch (err) {
-    res.status(400).send(err);
+    res
+      .status(400)
+      .json({ error: "Failed to delete student", details: err.message });
   }
 };
 
@@ -49,61 +59,50 @@ exports.getStudentByRegistrationNumber = async (req, res) => {
   console.log("Registration Number:", registrationNumber);
 
   try {
-    // Query the student by registration number
-    const [studentRows] = await pool.query(
-      "SELECT * FROM students WHERE registration_number = ?",
-      [registrationNumber]
-    );
+    // Find the student by registration number
+    const student = await Student.findOne({
+      registration_number: registrationNumber,
+    });
 
-    if (studentRows.length === 0) {
+    if (!student) {
       return res.status(404).json({ message: "Student not found" });
     }
 
-    const student = studentRows[0];
+    // Find the results for the student
+    const results = await Result.find({ student_id: student._id });
 
-    // Query the results for the student
-    const [resultRows] = await pool.query(
-      "SELECT * FROM results WHERE student_id = ?",
-      [student.id]
-    );
-
-    if (resultRows.length === 0) {
+    if (results.length === 0) {
       return res
         .status(404)
         .json({ message: "Results not found for this student" });
     }
 
-    const result = resultRows[0];
-
     res.status(200).json({
       student: {
-        id: student.id,
+        id: student._id,
         name: student.name,
         email: student.email,
         registrationNumber: student.registration_number,
       },
-      result: {
+      results: results.map((result) => ({
         courseName: result.course_name,
         resultYear: result.result_year,
-        marks: JSON.parse(result.result), // assuming 'result' is stored as JSON
-      },
+        marks: JSON.parse(result.result), // Assuming 'result' is stored as a JSON string
+      })),
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", details: error.message });
   }
 };
 
 // Get results for the logged-in student (based on their JWT token)
 exports.getResultsByStudentId = async (req, res) => {
   try {
-    const student_id = req.user.id; // Extract the student ID from the decoded JWT token (from auth middleware)
+    const student_id = req.user.id; // Extracted from JWT token (assumed available via middleware)
 
-    // Query to fetch the student's results
-    const [results] = await pool.query(
-      "SELECT * FROM results WHERE student_id = ?",
-      [student_id]
-    );
+    // Find results for the student by their ID
+    const results = await Result.find({ student_id });
 
     if (results.length === 0) {
       return res

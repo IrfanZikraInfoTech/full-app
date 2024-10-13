@@ -5,6 +5,7 @@ const authRoutes = require("./routes/authRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const resultRoutes = require("./routes/resultRoutes");
 const dotenv = require("dotenv");
+const connectDB = require('./config/db'); // Import the connection function
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+connectDB();
 
 // Routes
 app.use("/api", authRoutes);
