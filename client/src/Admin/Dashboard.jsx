@@ -27,7 +27,7 @@ const Dashboard = () => {
   };
 
   const handleView = (student) => {
-    navigate(`/user/${student.id}`);
+    navigate(`/user/${student._id}`);
   };
 
   const handleLogout = async () => {
