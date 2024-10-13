@@ -33,6 +33,9 @@ exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Log the request data
+    console.log("Login attempt:", { email, password });
+
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
@@ -45,6 +48,12 @@ exports.login = async (req, res) => {
       return res.status(400).json({ error: "Email or password is incorrect" });
     }
 
+    // Check if JWT_SECRET is defined
+    if (!process.env.JWT_SECRET) {
+      console.error("JWT_SECRET is not defined");
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
     // Generate a JWT token
     const token = jwt.sign(
       { id: user._id, email: user.email, role: user.role },
@@ -55,7 +64,8 @@ exports.login = async (req, res) => {
     // Respond with the JWT token
     res.status(200).json({ token });
   } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    console.error("Error during login:", err); // Log the actual error
+    res.status(500).json({ error: "Server error", details: err.message });
   }
 };
 
