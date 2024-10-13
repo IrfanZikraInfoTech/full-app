@@ -14,23 +14,36 @@ exports.getStudents = async (req, res) => {
 
 // Add a student
 exports.addStudent = async (req, res) => {
-  const { name, email, registrationNumber, addharnumber } = req.body; // Use "addharnumber" here
+  const { name, email, registrationNumber, addharnumber } = req.body;
 
   try {
+    // Check if the student with the same email or registration number already exists
+    const existingStudent = await Student.findOne({
+      $or: [{ email }, { registration_number: registrationNumber }],
+    });
+
+    if (existingStudent) {
+      return res
+        .status(400)
+        .json({ error: "Email or Registration Number already exists." });
+    }
+
+    // Create and save a new student
     const newStudent = new Student({
       name,
       email,
       registration_number: registrationNumber,
-      aadhar_number: addharnumber, // Use "addharnumber" here
+      aadhar_number: addharnumber,
     });
 
-    await newStudent.save(); // Save student to MongoDB
+    await newStudent.save(); // Save the new student to MongoDB
     res.status(201).json({ message: "Student added successfully" });
   } catch (err) {
     console.error("Error adding student:", err);
-    res
-      .status(400)
-      .json({ error: "Bad Request: Invalid input data", details: err.message });
+    res.status(400).json({
+      error: "Bad Request: Invalid input data",
+      details: err.message,
+    });
   }
 };
 
@@ -39,7 +52,13 @@ exports.deleteStudent = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await Student.findByIdAndDelete(id); // Find and delete student by ID
+    // Check if the ID is a valid MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid student ID" });
+    }
+
+    // Find and delete student by ID
+    const result = await Student.findByIdAndDelete(id);
 
     if (!result) {
       return res.status(404).json({ message: "Student not found" });
