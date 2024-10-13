@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media print {
+  /* Hide everything that is not meant for print */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Show only the result container */
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+
+  /* Ensure the print area takes the full page */
+  .print-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+  }
+
+  /* Hide the print button */
+  .no-print {
+    display: none;
+  }
+}
+.certificate-container {
+  max-width: 500px;
+  padding: 30px;
+  border-radius: 15px;
+  background-color: white;
+  border: 8px solid #1e3a8a; /* Blue Border */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
