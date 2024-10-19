@@ -19,17 +19,22 @@ const AddStudent = () => {
   };
 
   const handleSubmit = async (e) => {
-    setIsLoading(true);
     e.preventDefault();
+    setIsLoading(true);
+    setError(""); // Clear any existing errors
+    setSuccess(""); // Clear any existing success messages
+
     try {
       const token = localStorage.getItem("auth-token"); // Retrieve token if using authentication
+
+      // Send POST request to add the student
       const response = await axios.post(
         "https://full-app-8iz6.vercel.app/api/students",
         {
           name: formData.name,
           email: formData.email,
           registrationNumber: formData.registrationNumber,
-          addharnumber: formData.addharnumber, // Make sure to send 'addharnumber'
+          addharnumber: formData.addharnumber,
         },
         {
           headers: {
@@ -37,15 +42,20 @@ const AddStudent = () => {
           },
         }
       );
+
       if (response.status === 200) {
         setSuccess("Student added successfully!");
-        navigate("/dashboard");
+
+        // Small timeout to allow the user to see the success message
+        setTimeout(() => {
+          navigate("/dashboard"); // Navigate after a small delay
+        }, 1000); // 1 second delay
       }
     } catch (err) {
       console.error("Error adding student:", err);
       setError("There was an error adding the student.");
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Stop the loader
     }
   };
 

@@ -9,7 +9,7 @@ const Studentdetails = () => {
   const navigate = useNavigate();
   const { students } = useContext(StudentContext); // Access the context
   const { id } = useParams(); // Get the student ID from the URL
-  const student = students.find((student) => student._id === id); // Find the specific student by ID
+  const student = students.find((student) => student._id === id) || null; // Find the specific student by ID
 
   console.log("[After Finding in context data is]", student);
   console.log("[Context student data is]", students);
