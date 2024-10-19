@@ -39,7 +39,7 @@ const AddResult = () => {
       const token = localStorage.getItem("auth-token"); // Retrieve token
 
       const requestBody = {
-        studentId: student.id, // Use the student ID from the URL
+        studentId: student._id, // Use the student ID from the URL
         resultName: resultDetails.resultName,
         resultYear: resultDetails.resultYear,
         rows: rows,
