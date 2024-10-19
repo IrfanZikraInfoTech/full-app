@@ -9,14 +9,19 @@ const Studentdetails = () => {
   const navigate = useNavigate();
   const { students } = useContext(StudentContext); // Access the context
   const { id } = useParams(); // Get the student ID from the URL
-  const student = students.find((student) => student._id === parseInt(id)); // Find the specific student by ID
+  const student = students.find((student) => student._id === (id)); // Find the specific student by ID
+
+  console.log('[After Finding in context data is]',student); 
+  console.log('[Context student data is]',students); 
 
   const [results, setResults] = useState([]); // State to store student results
   const [error, setError] = useState(""); // State to store any errors
+  const [loading,setLoading]=useState(false); 
 
   useEffect(() => {
     const fetchResults = async () => {
       try {
+        setLoading(true); 
         const token = localStorage.getItem("auth-token"); // Get the auth token
         const response = await axios.get(
           `https://full-app-8iz6.vercel.app/api/results/${id}`, // Fetch results by student ID
@@ -27,9 +32,11 @@ const Studentdetails = () => {
           }
         );
         setResults(response.data); // Store fetched results in state
+        setLoading(false);
       } catch (err) {
         console.error("Error fetching results:", err);
         setError("Failed to fetch results.");
+        setLoading(false); 
       }
     };
 
@@ -39,8 +46,13 @@ const Studentdetails = () => {
   }, [id, student]);
 
   if (!student) {
+    return <div>Data not found...</div>; // Show a loading message if the student data is not yet available
+  }
+
+  if (loading) {
     return <div>Loading...</div>; // Show a loading message if the student data is not yet available
   }
+  
 
   const handleDelete = async (resultId) => {
     try {
@@ -83,7 +95,7 @@ const Studentdetails = () => {
         <div className="flex justify-end">
           <button
             className="bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition duration-300"
-            onClick={() => navigate(`/add-result/${student.id}`)} // Pass student ID via the route
+            onClick={() => navigate(`/add-result/${student._id}`)} // Pass student ID via the route
           >
             New Result
           </button>
