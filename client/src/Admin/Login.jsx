@@ -11,10 +11,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://full-app-8iz6.vercel.app/api/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://full-app-8iz6.vercel.app/api/login",
+        {
+          email,
+          password,
+        }
+      );
 
       // Store the token in localStorage
       localStorage.setItem("auth-token", response.data.token);
