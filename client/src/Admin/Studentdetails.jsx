@@ -9,19 +9,19 @@ const Studentdetails = () => {
   const navigate = useNavigate();
   const { students } = useContext(StudentContext); // Access the context
   const { id } = useParams(); // Get the student ID from the URL
-  const student = students.find((student) => student._id === (id)); // Find the specific student by ID
+  const student = students.find((student) => student._id === id); // Find the specific student by ID
 
-  console.log('[After Finding in context data is]',student); 
-  console.log('[Context student data is]',students); 
+  console.log("[After Finding in context data is]", student);
+  console.log("[Context student data is]", students);
 
   const [results, setResults] = useState([]); // State to store student results
   const [error, setError] = useState(""); // State to store any errors
-  const [loading,setLoading]=useState(false); 
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        setLoading(true); 
+        setLoading(true);
         const token = localStorage.getItem("auth-token"); // Get the auth token
         const response = await axios.get(
           `https://full-app-8iz6.vercel.app/api/results/${id}`, // Fetch results by student ID
@@ -36,7 +36,7 @@ const Studentdetails = () => {
       } catch (err) {
         console.error("Error fetching results:", err);
         setError("Failed to fetch results.");
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -52,19 +52,21 @@ const Studentdetails = () => {
   if (loading) {
     return <div>Loading...</div>; // Show a loading message if the student data is not yet available
   }
-  
 
   const handleDelete = async (resultId) => {
     try {
       const token = localStorage.getItem("auth-token");
-      await axios.delete(`https://full-app-8iz6.vercel.app/api/results/${resultId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.delete(
+        `https://full-app-8iz6.vercel.app/api/results/${resultId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       // After deletion, update the results state to reflect changes
-      setResults(results.filter((result) => result.id !== resultId));
+      setResults(results.filter((result) => result._id !== resultId));
     } catch (err) {
       console.error("Error deleting result:", err);
       setError("Failed to delete result.");
@@ -81,7 +83,7 @@ const Studentdetails = () => {
     navigate("/certificate", {
       state: {
         student,
-        result: results.find((result) => result.id === resultId), // Pass the specific result data
+        result: results.find((result) => result._id === resultId), // Pass the specific result data
       },
     });
   };
@@ -137,7 +139,7 @@ const Studentdetails = () => {
             <tbody>
               {results.map((result, index) => (
                 <tr
-                  key={result.id}
+                  key={result._id}
                   className={`${
                     index % 2 === 0 ? "bg-gray-50" : "bg-white"
                   } hover:bg-blue-50 transition-colors duration-200`}
@@ -158,14 +160,14 @@ const Studentdetails = () => {
                     </button>
                     <button
                       className="text-red-500 hover:text-red-700"
-                      onClick={() => handleDelete(result.id)}
+                      onClick={() => handleDelete(result._id)}
                     >
                       <FaTrash className="inline-block mr-2" />
                       Delete
                     </button>
                     <button
                       className="text-red-500 hover:text-red-700"
-                      onClick={() => handleCertificate(result.id)}
+                      onClick={() => handleCertificate(result._id)}
                     >
                       <MdOutlineFileDownload className="inline-block mr-2" />
                       Certificate
