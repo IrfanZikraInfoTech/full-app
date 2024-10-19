@@ -14,11 +14,13 @@ const AdminResult = ({ studentInfo, resultData }) => {
 
   return (
     <div className="w-[1000px] h-[1400px] mx-auto relative">
+      <div className="fixed top-0 -z-10 h-full w-full">
+        <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      </div>{" "}
       {/* Header */}
       <header>
         <img src={header} alt="Header" className="w-full h-auto" />
       </header>
-
       {/* Main Content */}
       <main className="p-8 font-sans text-sm bg-white text-gray-900">
         <div className="text-center mb-8">
@@ -38,6 +40,9 @@ const AdminResult = ({ studentInfo, resultData }) => {
           <div className="text-right">
             <p>
               <strong>Aadhar No:</strong> {studentInfo.aadhar_number}
+            </p>
+            <p>
+              <strong>Father Name:</strong> {studentInfo.fathername}
             </p>
           </div>
         </div>
@@ -84,9 +89,8 @@ const AdminResult = ({ studentInfo, resultData }) => {
           <p className="font-bold">PASS IN GRADE: A</p>
         </div>
       </main>
-
       {/* Footer */}
-      <footer >
+      <footer>
         <img src={footer} alt="Footer" className="w-full h-auto" />
       </footer>
     </div>

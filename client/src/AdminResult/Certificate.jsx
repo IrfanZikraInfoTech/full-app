@@ -41,7 +41,10 @@ const Certificate = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen  flex flex-col items-center justify-center p-4">
+      <div className="fixed top-0 -z-10 h-full w-full">
+        <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      </div>{" "}
       <div
         id="certificate-container"
         className="certificate-container bg-white border-4 border-blue-700 rounded-lg shadow-xl relative"
@@ -71,7 +74,7 @@ const Certificate = () => {
               {student.name}
             </h2>
             <p className="text-sm mb-1">
-              S/o, W/o, D/o: {student.guardian || "N/A"}
+              S/o, W/o, D/o: {student.fathername || "N/A"}
             </p>
             <p className="text-xs font-medium mb-1 text-orange-600">
               For Successfully Completing the Course
