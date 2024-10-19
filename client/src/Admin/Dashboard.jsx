@@ -80,13 +80,13 @@ const Dashboard = () => {
           <div className="flex gap-4">
             <button
               onClick={() => navigate("/add_student")}
-              className="w-full  text-white px-4 py-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
+              className="text-white px-8 py-1 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
             >
               Add Student
             </button>
             <button
               onClick={handleLogout} // Call handleLogout on click
-              className="w-full  text-white px-4 py-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
+              className="text-white px-4 py-1 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
             >
               Log Out
             </button>
