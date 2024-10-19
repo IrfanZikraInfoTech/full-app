@@ -2,7 +2,6 @@ const Student = require("../models/Student");
 const Result = require("../models/Result");
 const mongoose = require("mongoose"); // Add this line
 
-
 exports.getStudents = async (req, res) => {
   try {
     const students = await Student.find(); // Fetch all students
@@ -16,7 +15,8 @@ exports.getStudents = async (req, res) => {
 
 // Add a student
 exports.addStudent = async (req, res) => {
-  const { name, email, registrationNumber, addharnumber } = req.body;
+  const { name, email, registrationNumber, addharnumber, fathername } =
+    req.body;
 
   try {
     // Check if the student with the same email or registration number already exists
@@ -34,6 +34,7 @@ exports.addStudent = async (req, res) => {
     const newStudent = new Student({
       name,
       email,
+      fathername, // Save the fathername
       registration_number: registrationNumber,
       aadhar_number: addharnumber,
     });

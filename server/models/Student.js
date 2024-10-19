@@ -5,6 +5,7 @@ const studentSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   registration_number: { type: String, required: true, unique: true },
   aadhar_number: { type: String, required: true },
+  fathername: { type: String, required: true }, // Added fathername
 });
 
 const Student = mongoose.model("Student", studentSchema);
