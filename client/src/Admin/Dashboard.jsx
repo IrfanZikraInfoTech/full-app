@@ -70,20 +70,23 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-green-400 to-blue-400 min-h-screen py-10">
+    <div className="overflow-x-hidden flex items-center justify-center h-screen text-neutral-300 antialiased selection:bg-cyan-300 selection:text-cyan-900">
+      <div className="fixed top-0 -z-10 h-full w-full">
+        <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      </div>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold text-white">Student Dashboard</h1>
           <div className="flex gap-4">
             <button
               onClick={() => navigate("/add_student")}
-              className="bg-white text-blue-600 px-6 py-2 rounded-lg shadow-lg hover:bg-blue-100 transition duration-300 ease-in-out"
+              className="w-full  text-white p-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
             >
               Add Student
             </button>
             <button
               onClick={handleLogout} // Call handleLogout on click
-              className="bg-white text-blue-600 px-6 py-2 rounded-lg shadow-lg hover:bg-blue-100 transition duration-300 ease-in-out"
+              className="w-full  text-white p-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
             >
               Log Out
             </button>
@@ -114,14 +117,14 @@ const Dashboard = () => {
               </div>
               <div className="flex justify-between mt-4">
                 <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
+                  className="w-full  text-white p-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
                   onClick={() => handleView(student)}
                 >
                   View
                 </button>
                 <button
                   onClick={() => handleDelete(student._id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300 ease-in-out"
+                  className="w-full  text-white p-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
                 >
                   Delete
                 </button>
