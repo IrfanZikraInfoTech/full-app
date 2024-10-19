@@ -99,15 +99,18 @@ const Studentdetails = () => {
         </div>
 
         {/* Student Info */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-semibold text-gray-700 mb-2">
+        <div className="mb-8 flex">
+          <p className="text-3xl font-semibold text-gray-700 mb-2">
             {student.name} {/* Dynamically display the student's name */}
-          </h2>
+          </p>
           <p className="text-lg text-gray-600">
             <strong>Registration Number:</strong> {student.registration_number}
           </p>
           <p className="text-lg text-gray-600">
             <strong>Email:</strong> {student.email}
+          </p>
+          <p className="text-lg text-gray-600">
+            <strong>Email:</strong> {student.fathername}
           </p>
         </div>
 
