@@ -30,7 +30,7 @@ const UserForm = () => {
         localStorage.setItem("result-token", data.token);
 
         // Navigate to the result page with student and result data
-        navigate(`/result/${data.student.id}`, {
+        navigate(`/result/${data.student._id}`, {
           state: {
             student: data.student,
             result: data.result,

@@ -24,7 +24,7 @@ const Dashboard = () => {
       );
 
       // Update the students state after deletion
-      setStudents(students.filter((student) => student.id !== id));
+      setStudents(students.filter((student) => student._id !== id));
     } catch (err) {
       console.error("Error deleting student:", err);
       setError("Failed to delete student");

@@ -74,7 +74,7 @@ const Studentdetails = () => {
   const handleView = (course) => {
     // Placeholder for handling view action
     console.log("Viewing course:", course.name);
-    navigate(`/user/${student.id}/result/${course.id}`);
+    navigate(`/user/${student._id}/result/${course.id}`);
   };
 
   const handleCertificate = (resultId) => {

@@ -13,7 +13,7 @@ const Adminuservew = () => {
   useEffect(() => {
     // Find the student by ID from the context
     const selectedStudent = students.find(
-      (student) => student.id === parseInt(id)
+      (student) => student._id === (id)
     );
     if (selectedStudent) {
       setStudentInfo(selectedStudent);
