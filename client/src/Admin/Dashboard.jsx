@@ -112,12 +112,12 @@ const Dashboard = () => {
               <div className="flex justify-between mt-4">
                 <button
                   className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
-                  onClick={() => handleView(student)}
+                  onClick={() => handleView(student._id)}
                 >
                   View
                 </button>
                 <button
-                  onClick={() => handleDelete(student.id)}
+                  onClick={() => handleDelete(student._id)}
                   className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300 ease-in-out"
                 >
                   Delete
