@@ -49,12 +49,15 @@ const UserForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-teal-500">
+    <div className="flex items-center justify-center h-screen">
+      <div className="fixed top-0 -z-10 h-full w-full">
+        <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      </div>{" "}
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg shadow-lg"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">
+        <h2 className="text-2xl font-bold mb-6 text-center text-blue-900">
           View Your Results
         </h2>
         {error && (
@@ -78,7 +81,7 @@ const UserForm = () => {
         />
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-300"
+          className="w-full  text-white p-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
         >
           Submit
         </button>

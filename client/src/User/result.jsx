@@ -21,7 +21,10 @@ const Result = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="container mx-auto p-6 rounded-lg shadow-lg">
+      <div className="fixed top-0 -z-10 h-full w-full">
+        <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      </div>{" "}
       <div className="text-center mb-6">
         <h1 className="text-4xl font-bold text-blue-600">
           VED COMPUTER EDUCATION INSTITUTE
@@ -29,7 +32,6 @@ const Result = () => {
         <p>A VENTURE OF EDUCATION LIVE FOUNDATION, NEW DELHI</p>
         <p className="text-lg font-semibold mt-2">Statement of Marks</p>
       </div>
-
       <div className="mb-6">
         <p>
           <strong>Registration No:</strong> {student.registrationNumber}
@@ -44,7 +46,6 @@ const Result = () => {
           <strong>Result Year:</strong> {resultYear}
         </p>
       </div>
-
       <table className="table-auto w-full border-collapse border border-gray-300 mb-6">
         <thead>
           <tr className="bg-gray-100">
@@ -73,17 +74,15 @@ const Result = () => {
           ))}
         </tbody>
       </table>
-
       <div className="flex justify-between items-center mb-6">
         <p className="font-bold text-xl">
           Total Marks: {totalMarks}/{maxMarks}
         </p>
         <p className="font-bold text-xl">PASS IN GRADE: A</p>
       </div>
-
       <div className="flex justify-end space-x-4">
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="text-white px-8 py-1 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
           onClick={() => window.history.back()}
         >
           Go Back
