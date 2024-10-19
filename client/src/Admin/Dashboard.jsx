@@ -117,14 +117,14 @@ const Dashboard = () => {
               </div>
               <div className="flex justify-between mt-4">
                 <button
-                  className="w-full  text-white p-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
+                  className="w-full px-6 py-2  text-white rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
                   onClick={() => handleView(student)}
                 >
                   View
                 </button>
                 <button
                   onClick={() => handleDelete(student._id)}
-                  className="w-full  text-white p-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
+                  className="w-full px-6 py-2  text-white rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
                 >
                   Delete
                 </button>
