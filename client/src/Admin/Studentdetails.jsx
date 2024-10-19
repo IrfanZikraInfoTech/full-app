@@ -84,14 +84,17 @@ const Studentdetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center p-8">
+    <div className="min-h-screen flex items-center justify-center p-8">
+      <div className="fixed top-0 -z-10 h-full w-full">
+        <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      </div>
       <div className="max-w-5xl w-full bg-white shadow-2xl rounded-xl p-8">
         <h1 className="text-4xl font-bold mb-6 text-gray-900 text-center">
           Student Details
         </h1>
         <div className="flex justify-end">
           <button
-            className="bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition duration-300"
+            className="px-6 py-2  text-white rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
             onClick={() => navigate(`/add-result/${student._id}`)} // Pass student ID via the route
           >
             New Result
@@ -155,21 +158,21 @@ const Studentdetails = () => {
                   </td>
                   <td className="py-4 px-6 border-b text-gray-700 text-lg flex space-x-6">
                     <button
-                      className="text-blue-500 hover:text-blue-700"
+                      className="text-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
                       onClick={() => handleView(result)}
                     >
                       <FaEye className="inline-block mr-2" />
                       View
                     </button>
                     <button
-                      className="text-red-500 hover:text-red-700"
+                      className="text-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
                       onClick={() => handleDelete(result._id)}
                     >
                       <FaTrash className="inline-block mr-2" />
                       Delete
                     </button>
                     <button
-                      className="text-red-500 hover:text-red-700"
+                      className="text-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
                       onClick={() => handleCertificate(result._id)}
                     >
                       <MdOutlineFileDownload className="inline-block mr-2" />
