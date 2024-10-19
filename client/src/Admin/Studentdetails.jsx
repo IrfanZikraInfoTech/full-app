@@ -9,7 +9,7 @@ const Studentdetails = () => {
   const navigate = useNavigate();
   const { students } = useContext(StudentContext); // Access the context
   const { id } = useParams(); // Get the student ID from the URL
-  const student = students.find((student) => student.id === parseInt(id)); // Find the specific student by ID
+  const student = students.find((student) => student._id === parseInt(id)); // Find the specific student by ID
 
   const [results, setResults] = useState([]); // State to store student results
   const [error, setError] = useState(""); // State to store any errors
