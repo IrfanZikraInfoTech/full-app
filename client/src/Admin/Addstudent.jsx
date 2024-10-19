@@ -43,13 +43,12 @@ const AddStudent = () => {
         }
       );
 
-      if (response.status === 200) {
+      if (response.status === 201) {
+        // Check for 201 Created status
         setSuccess("Student added successfully!");
 
-        // Small timeout to allow the user to see the success message
-        setTimeout(() => {
-          navigate("/dashboard"); // Navigate after a small delay
-        }, 1000); // 1 second delay
+        // Navigate to dashboard immediately
+        navigate("/dashboard");
       }
     } catch (err) {
       console.error("Error adding student:", err);
