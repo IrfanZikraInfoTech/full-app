@@ -16,12 +16,12 @@ const Studentdetails = () => {
 
   const [results, setResults] = useState([]); // State to store student results
   const [error, setError] = useState(""); // State to store any errors
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        setLoading(true);
+        setIsLoading(true);
         const token = localStorage.getItem("auth-token"); // Get the auth token
         const response = await axios.get(
           `https://full-app-8iz6.vercel.app/api/results/${id}`, // Fetch results by student ID
@@ -32,11 +32,11 @@ const Studentdetails = () => {
           }
         );
         setResults(response.data); // Store fetched results in state
-        setLoading(false);
+        setIsLoading(false);
       } catch (err) {
         console.error("Error fetching results:", err);
         setError("Failed to fetch results.");
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -45,15 +45,12 @@ const Studentdetails = () => {
     }
   }, [id, student]);
 
-  if (!student) {
-    return <div>Data not found...</div>; // Show a loading message if the student data is not yet available
-  }
-
-  if (loading) {
-    return <div>Loading...</div>; // Show a loading message if the student data is not yet available
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>; // Show a loading message if the student data is not yet available
+  // }
 
   const handleDelete = async (resultId) => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem("auth-token");
       await axios.delete(
@@ -70,6 +67,8 @@ const Studentdetails = () => {
     } catch (err) {
       console.error("Error deleting result:", err);
       setError("Failed to delete result.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -181,6 +180,11 @@ const Studentdetails = () => {
 
         {results.length === 0 && (
           <p className="text-center text-gray-600 mt-4">No results found.</p>
+        )}
+        {isLoading && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+          </div>
         )}
       </div>
     </div>

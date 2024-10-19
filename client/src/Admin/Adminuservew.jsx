@@ -9,12 +9,11 @@ const Adminuservew = () => {
   const { id } = useParams(); // Get result ID from URL params
   const [resultData, setResultData] = useState([]); // To store the result data
   const [studentInfo, setStudentInfo] = useState(null); // To store the selected student's info
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Find the student by ID from the context
-    const selectedStudent = students.find(
-      (student) => student._id === (id)
-    );
+    const selectedStudent = students.find((student) => student._id === id);
     if (selectedStudent) {
       setStudentInfo(selectedStudent);
     } else {
@@ -23,6 +22,7 @@ const Adminuservew = () => {
 
     // Fetch the result for the specific student by ID
     const fetchResultData = async () => {
+      setIsLoading(true);
       try {
         const token = localStorage.getItem("auth-token"); // Get auth token
         const response = await axios.get(
@@ -58,6 +58,8 @@ const Adminuservew = () => {
       } catch (err) {
         console.error("Error fetching result data:", err);
         setError("Failed to fetch result data.");
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -92,6 +94,11 @@ const Adminuservew = () => {
         ) : (
           <div className="text-red-500 text-center">
             Loading student information or result data...
+          </div>
+        )}
+        {isLoading && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
           </div>
         )}
       </div>

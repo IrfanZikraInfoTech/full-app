@@ -12,12 +12,14 @@ const AddStudent = () => {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       const token = localStorage.getItem("auth-token"); // Retrieve token if using authentication
@@ -42,6 +44,8 @@ const AddStudent = () => {
     } catch (err) {
       console.error("Error adding student:", err);
       setError("There was an error adding the student.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -142,6 +146,11 @@ const AddStudent = () => {
             Submit
           </button>
         </form>
+        {isLoading && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+          </div>
+        )}
       </div>
     </div>
   );

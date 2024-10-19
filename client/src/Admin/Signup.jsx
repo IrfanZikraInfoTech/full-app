@@ -9,9 +9,11 @@ const AdminSignup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -39,6 +41,8 @@ const AdminSignup = () => {
     } catch (err) {
       console.error("Signup error:", err);
       setError("Signup failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -91,6 +95,11 @@ const AdminSignup = () => {
           Sign Up
         </button>
       </form>
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+        </div>
+      )}
     </div>
   );
 };

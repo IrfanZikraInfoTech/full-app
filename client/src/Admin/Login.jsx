@@ -7,8 +7,10 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -33,6 +35,8 @@ const Login = () => {
     } catch (err) {
       console.error("Login error:", err);
       setError("Invalid login credentials");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,6 +79,11 @@ const Login = () => {
           Sign Up
         </button>
       </form>
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+        </div>
+      )}
     </div>
   );
 };

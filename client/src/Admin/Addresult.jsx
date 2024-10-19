@@ -6,7 +6,8 @@ import { StudentContext } from "../StudentContext";
 const AddResult = () => {
   const { students } = useContext(StudentContext); // Access the context
   const { id } = useParams(); // Get studentId from the URL
-  const student = students.find((student) => student._id === (id)); // Find the specific student by ID
+  const student = students.find((student) => student._id === id); // Find the specific student by ID
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -35,6 +36,7 @@ const AddResult = () => {
   };
 
   const handleModalSave = async () => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem("auth-token"); // Retrieve token
 
@@ -61,6 +63,8 @@ const AddResult = () => {
       navigate(`/user/${id}`);
     } catch (error) {
       console.error("Failed to save results:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -191,6 +195,11 @@ const AddResult = () => {
               </button>
             </div>
           </div>
+        </div>
+      )}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
         </div>
       )}
     </div>
