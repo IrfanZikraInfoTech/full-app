@@ -6,17 +6,22 @@ import { StudentContext } from "../StudentContext";
 const Dashboard = () => {
   const { students, setStudents, error, setError } = useContext(StudentContext); // Access the context
   const navigate = useNavigate();
-
+  console.log("====================================");
+  console.log(students);
+  console.log("====================================");
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("auth-token"); // Retrieve token
 
       // Send DELETE request to delete the student
-      await axios.delete(`https://full-app-8iz6.vercel.app/api/students/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Send token in the Authorization header
-        },
-      });
+      await axios.delete(
+        `https://full-app-8iz6.vercel.app/api/students/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Send token in the Authorization header
+          },
+        }
+      );
 
       // Update the students state after deletion
       setStudents(students.filter((student) => student.id !== id));
