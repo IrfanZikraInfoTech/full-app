@@ -94,7 +94,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {students.map((student) => (
             <div
-              key={student.id}
+              key={student._id}
               className="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300 ease-in-out"
             >
               <div>
@@ -112,7 +112,7 @@ const Dashboard = () => {
               <div className="flex justify-between mt-4">
                 <button
                   className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
-                  onClick={() => handleView(student._id)}
+                  onClick={() => handleView(student)}
                 >
                   View
                 </button>
