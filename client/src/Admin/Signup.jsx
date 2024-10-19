@@ -47,12 +47,15 @@ const AdminSignup = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-red-500 to-orange-500">
+    <div className="overflow-x-hidden flex items-center justify-center h-screen text-neutral-300 antialiased selection:bg-cyan-300 selection:text-cyan-900">
+      <div className="fixed top-0 -z-10 h-full w-full">
+        <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      </div>
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg shadow-lg"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center text-red-600">
+        <h2 className="text-2xl font-bold mb-6 text-center text-blue-900">
           Admin Sign Up
         </h2>
         {error && <div className="text-red-500 mb-4">{error}</div>}
@@ -90,7 +93,7 @@ const AdminSignup = () => {
         />
         <button
           type="submit"
-          className="w-full bg-red-500 text-white p-2 rounded hover:bg-red-600 transition duration-300"
+          className="w-full  text-white p-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
         >
           Sign Up
         </button>

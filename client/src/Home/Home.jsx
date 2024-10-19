@@ -2,7 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => (
-  <div className="flex items-center justify-center h-screen bg-gradient-to-r from-purple-500 to-pink-500">
+  <div className="overflow-x-hidden flex items-center justify-center h-screen text-neutral-300 antialiased selection:bg-cyan-300 selection:text-cyan-900">
+    <div className="fixed top-0 -z-10 h-full w-full">
+      <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+    </div>
+
     <div className="text-center">
       <h1 className="text-4xl font-bold text-white mb-8">
         Welcome to Our Portal

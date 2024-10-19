@@ -6,12 +6,7 @@ import { StudentContext } from "../StudentContext";
 const Dashboard = () => {
   const { students, setStudents, error, setError } = useContext(StudentContext); // Access the context
   const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
-  console.log("====================================");
-  console.log(students);
-  console.log("====================================");
-
   const handleDelete = async (id) => {
     setIsLoading(true);
     try {

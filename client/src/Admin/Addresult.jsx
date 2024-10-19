@@ -74,7 +74,10 @@ const AddResult = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-500 to-purple-600">
+    <div className="overflow-x-hidden flex items-center justify-center h-screen text-neutral-300 antialiased selection:bg-cyan-300 selection:text-cyan-900">
+      <div className="fixed top-0 -z-10 h-full w-full">
+        <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+      </div>{" "}
       <div className="container mx-auto p-8 flex-1">
         <h1 className="text-5xl font-bold text-white mb-8">
           Add Student Result
@@ -134,14 +137,14 @@ const AddResult = () => {
 
           <div className="mt-4">
             <button
-              className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600 transition duration-300"
+              className="w-full  text-white p-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
               onClick={handleAddRow}
             >
               Add Row
             </button>
 
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-300 ml-4"
+              className="w-full  text-white p-2 ml-4 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
               onClick={handleSaveResult}
             >
               Save Result
@@ -149,7 +152,6 @@ const AddResult = () => {
           </div>
         </div>
       </div>
-
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
@@ -182,13 +184,13 @@ const AddResult = () => {
 
             <div className="flex justify-end">
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-300 mr-2"
+                className="w-full  text-white p-2 mr-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
                 onClick={handleModalSave}
               >
                 Save
               </button>
               <button
-                className="bg-red-500 text-white px-4 py-2 rounded-lg shadow hover:bg-red-600 transition duration-300"
+                className="w-full  text-white p-2 rounded bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] transition duration-300"
                 onClick={() => setShowModal(false)}
               >
                 Cancel

@@ -99,7 +99,7 @@ const Studentdetails = () => {
         </div>
 
         {/* Student Info */}
-        <div className="mb-8 flex gap-8 justify-between">
+        <div className="mb-8 mt-4 flex gap-8 justify-between">
           <div className="flex flex-col">
             <p className="text-xl font-semibold text-gray-700 mb-2">
               {student.name} {/* Dynamically display the student's name */}
