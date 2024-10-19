@@ -9,6 +9,7 @@ const AddStudent = () => {
     email: "",
     registrationNumber: "",
     addharnumber: "",
+    fathername: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -35,6 +36,7 @@ const AddStudent = () => {
           email: formData.email,
           registrationNumber: formData.registrationNumber,
           addharnumber: formData.addharnumber,
+          fathername: formData.fathername, // Make sure fathername is included here
         },
         {
           headers: {
@@ -103,6 +105,25 @@ const AddStudent = () => {
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter student's email"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Father Name
+            </label>
+            <input
+              type="text"
+              id="fatername"
+              name="fathername"
+              value={formData.fathername}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter Father Name"
               required
             />
           </div>

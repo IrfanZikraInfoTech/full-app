@@ -45,10 +45,6 @@ const Studentdetails = () => {
     }
   }, [id, student]);
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>; // Show a loading message if the student data is not yet available
-  // }
-
   const handleDelete = async (resultId) => {
     setIsLoading(true);
     try {
