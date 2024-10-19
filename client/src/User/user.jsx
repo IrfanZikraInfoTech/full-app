@@ -12,7 +12,7 @@ const UserForm = () => {
     setError("");
 
     try {
-      const response = await fetch("https://full-app-8iz6.vercel.app/auth/result-login", {
+      const response = await fetch("https://full-app-8iz6.vercel.app/api/result-login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
