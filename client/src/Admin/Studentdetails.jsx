@@ -99,19 +99,24 @@ const Studentdetails = () => {
         </div>
 
         {/* Student Info */}
-        <div className="mb-8 flex">
-          <p className="text-3xl font-semibold text-gray-700 mb-2">
-            {student.name} {/* Dynamically display the student's name */}
-          </p>
-          <p className="text-lg text-gray-600">
-            <strong>Registration Number:</strong> {student.registration_number}
-          </p>
-          <p className="text-lg text-gray-600">
-            <strong>Email:</strong> {student.email}
-          </p>
-          <p className="text-lg text-gray-600">
-            <strong>Email:</strong> {student.fathername}
-          </p>
+        <div className="mb-8 flex gap-8">
+          <div className="flex flex-col">
+            <p className="text-3xl font-semibold text-gray-700 mb-2">
+              {student.name} {/* Dynamically display the student's name */}
+            </p>
+            <p className="text-lg text-gray-600">
+              <strong>Registration Number:</strong>{" "}
+              {student.registration_number}
+            </p>
+          </div>
+          <div className="flex flex-col">
+            <p className="text-lg text-gray-600">
+              <strong>Email:</strong> {student.email}
+            </p>
+            <p className="text-lg text-gray-600">
+              <strong>Father Name:</strong> {student.fathername}
+            </p>
+          </div>
         </div>
 
         {/* Table for Courses and Results */}
