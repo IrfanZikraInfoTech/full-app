@@ -23,7 +23,6 @@ connectDB();
 app.use("/api", authRoutes);
 app.use("/api", studentRoutes);
 app.use("/api", resultRoutes); // Use the result routes
-app.use("/auth", authRoutes);
 app.get("/", (req, res) => {
   res.send("Hello from Vercel!");
 });
