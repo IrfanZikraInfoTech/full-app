@@ -6,7 +6,7 @@ import { StudentContext } from "../StudentContext";
 const AddResult = () => {
   const { students } = useContext(StudentContext); // Access the context
   const { id } = useParams(); // Get studentId from the URL
-  const student = students.find((student) => student._id === parseInt(id)); // Find the specific student by ID
+  const student = students.find((student) => student._id === (id)); // Find the specific student by ID
 
   const navigate = useNavigate();
 
