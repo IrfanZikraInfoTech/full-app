@@ -6,11 +6,13 @@ export const StudentContext = createContext();
 
 export const StudentProvider = ({ children }) => {
   const [students, setStudents] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchStudents = async () => {
       const authToken = localStorage.getItem("auth-token");
       const resultToken = localStorage.getItem("result-token");
@@ -61,6 +63,8 @@ export const StudentProvider = ({ children }) => {
         ) {
           navigate("/login");
         }
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -70,6 +74,11 @@ export const StudentProvider = ({ children }) => {
   return (
     <StudentContext.Provider value={{ students, setStudents, error, setError }}>
       {children}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+        </div>
+      )}
     </StudentContext.Provider>
   );
 };
