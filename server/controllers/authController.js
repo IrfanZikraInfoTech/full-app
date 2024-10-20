@@ -6,22 +6,55 @@ const Result = require("../models/Result"); // Result model
 
 // Signup function
 exports.signup = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, securityQuestion, securityAnswer } =
+    req.body;
 
   try {
     // Check if the user already exists
     const existingUser = await User.findOne({ email });
+
     if (existingUser) {
-      return res.status(400).json({ error: "User already exists" });
+      // If the user exists, ask for security answer verification
+      if (!req.body.securityAnswer || !securityQuestion) {
+        return res.status(400).json({
+          error:
+            "User already exists. Please provide the security question and answer to replace the existing user.",
+          securityQuestion: existingUser.securityQuestion, // Return the question to the frontend
+        });
+      }
+
+      // Compare the security answer
+      const isAnswerCorrect = await existingUser.compareSecurityAnswer(
+        req.body.securityAnswer
+      );
+
+      if (!isAnswerCorrect) {
+        return res.status(401).json({ error: "Incorrect security answer." });
+      }
+
+      // If the security answer matches, replace the user with the new details
+      existingUser.name = name;
+      existingUser.password = password; // Will be re-hashed due to the pre-save middleware
+      existingUser.securityQuestion = securityQuestion;
+      existingUser.securityAnswer = securityAnswer;
+      existingUser.role = role || "user"; // Update role if provided
+
+      await existingUser.save(); // Save the updated user
+      return res.status(200).json({ message: "User replaced successfully." });
     }
 
-    // Create a new user
-    const user = new User({ name, email, password, role: role || "user" });
+    // If user doesn't exist, create a new user
+    const user = new User({
+      name,
+      email,
+      password,
+      role: role || "user",
+      securityQuestion,
+      securityAnswer, // This will be hashed by the pre-save middleware
+    });
 
-    // Save the user to MongoDB
-    await user.save();
-
-    res.status(201).json({ message: "User registered successfully" });
+    await user.save(); // Save the new user to MongoDB
+    res.status(201).json({ message: "User registered successfully." });
   } catch (err) {
     console.error("Error during signup:", err); // Log the actual error
     res.status(400).json({ error: err.message || "Signup failed" });
@@ -121,6 +154,7 @@ exports.loginForResult = async (req, res) => {
         name: student.name,
         email: student.email,
         registrationNumber: student.registration_number,
+        fathername: student.fathername,
       },
       result: {
         courseName: result.course_name,
