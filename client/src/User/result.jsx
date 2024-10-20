@@ -13,15 +13,19 @@ const Result = () => {
 
   const { courseName, resultYear, marks } = result;
 
-  const totalMarks = marks.reduce((acc, curr) => acc + curr.obtainedMarks, 0);
-  const maxMarks = marks.reduce((acc, curr) => acc + curr.maxMarks, 0);
+  // Assuming marks is an array of objects with obtainedMarks and maxMarks as numeric values
+  const totalMarks = marks.reduce(
+    (acc, curr) => acc + Number(curr.obtainedMarks),
+    0
+  );
+  const maxMarks = marks.reduce((acc, curr) => acc + Number(curr.maxMarks), 0);
 
   const handlePrint = () => {
     window.print();
   };
 
   return (
-    <div className="container mx-auto p-6 rounded-lg shadow-lg">
+    <div className="min-h-screen mx-auto p-6 rounded-lg shadow-lg">
       <div className="fixed top-0 -z-10 h-full w-full">
         <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
       </div>{" "}
@@ -29,8 +33,12 @@ const Result = () => {
         <h1 className="text-4xl font-bold text-blue-900">
           VED COMPUTER EDUCATION INSTITUTE
         </h1>
-        <p className="text-white">A VENTURE OF EDUCATION LIVE FOUNDATION, NEW DELHI</p>
-        <p className="text-lg font-semibold text-white mt-2">Statement of Marks</p>
+        <p className="text-white">
+          A VENTURE OF EDUCATION LIVE FOUNDATION, NEW DELHI
+        </p>
+        <p className="text-lg font-semibold text-white mt-2">
+          Statement of Marks
+        </p>
       </div>
       <div className="mb-6">
         <p>
