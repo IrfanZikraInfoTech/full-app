@@ -26,11 +26,11 @@ const Result = () => {
         <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
       </div>{" "}
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-bold text-blue-600">
+        <h1 className="text-4xl font-bold text-blue-900">
           VED COMPUTER EDUCATION INSTITUTE
         </h1>
-        <p>A VENTURE OF EDUCATION LIVE FOUNDATION, NEW DELHI</p>
-        <p className="text-lg font-semibold mt-2">Statement of Marks</p>
+        <p className="text-white">A VENTURE OF EDUCATION LIVE FOUNDATION, NEW DELHI</p>
+        <p className="text-lg font-semibold text-white mt-2">Statement of Marks</p>
       </div>
       <div className="mb-6">
         <p>
@@ -58,23 +58,23 @@ const Result = () => {
         <tbody>
           {marks.map((subject, index) => (
             <tr key={index}>
-              <td className="border border-gray-300 px-4 py-2 text-center">
+              <td className="border bg-gray-300 border-gray-300 px-4 py-2 text-center">
                 {index + 1}
               </td>
-              <td className="border border-gray-300 px-4 py-2">
+              <td className="border bg-gray-300 border-gray-300 px-4 py-2">
                 {subject.subject}
               </td>
-              <td className="border border-gray-300 px-4 py-2 text-center">
+              <td className="border bg-gray-300 border-gray-300 px-4 py-2 text-center">
                 {subject.maxMarks}
               </td>
-              <td className="border border-gray-300 px-4 py-2 text-center">
+              <td className="border bg-gray-300 border-gray-300 px-4 py-2 text-center">
                 {subject.obtainedMarks}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between text-white items-center mb-6">
         <p className="font-bold text-xl">
           Total Marks: {totalMarks}/{maxMarks}
         </p>
