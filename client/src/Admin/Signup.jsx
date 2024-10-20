@@ -8,10 +8,10 @@ const AdminSignup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [securityAnswer, setSecurityAnswer] = useState("");
   const [securityQuestion, setSecurityQuestion] = useState(
     "What is your first school name?"
-  ); // Fixed question
+  );
+  const [securityAnswer, setSecurityAnswer] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -29,54 +29,35 @@ const AdminSignup = () => {
       return;
     }
 
-    try {
-      // Initial signup request
-      const response = await axios.post(
-        "https://full-app-8iz6.vercel.app/api/signup",
-        {
-          name,
-          email,
-          password,
-        }
-      );
-
-      // If the security question is needed (user already exists)
-      if (response.data.securityQuestion) {
-        setSecurityQuestion(response.data.securityQuestion); // Set the security question
-        setShowModal(true); // Open the modal to ask for security answer
-      } else {
-        // If signup was successful without the need for a security answer
-        console.log("Signup successful:", response.data);
-        navigate("/login");
-      }
-    } catch (err) {
-      console.error("Signup error:", err);
-      setError(err.response.data.error || "Signup failed. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+    // Show the modal to collect security question and answer
+    setShowModal(true);
   };
 
   // Handle final submission after the modal is closed
   const handleFinalSubmit = async () => {
     try {
-      // Submit with the security answer
+      // Post to Node.js signup endpoint with security question and answer
       const response = await axios.post(
         "https://full-app-8iz6.vercel.app/api/signup",
         {
           name,
           email,
           password,
-          securityAnswer, // Send the security answer in the request
+          securityAnswer, // Send security question and answer in the request
+        },
+        {
+          withCredentials: true, // Include this if you're dealing with cookies or authentication
         }
       );
 
-      console.log("User replaced successfully:", response.data);
+      console.log("Signup successful:", response.data);
+      // Redirect to login after successful signup
       navigate("/login");
     } catch (err) {
-      console.error("Replacement error:", err);
-      setError(err.response.data.error || "Failed to replace the user.");
+      console.error("Signup error:", err);
+      setError("Signup failed. Please try again.");
     } finally {
+      setIsLoading(false);
       setShowModal(false); // Close the modal
     }
   };
@@ -133,6 +114,13 @@ const AdminSignup = () => {
           Sign Up
         </button>
       </form>
+
+      {/* Loading Spinner */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+        </div>
+      )}
 
       {/* Modal for Security Question */}
       {showModal && (
