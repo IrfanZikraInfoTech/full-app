@@ -82,12 +82,10 @@ const Certificate = () => {
             <h3 className="text-lg font-semibold text-orange-600 uppercase mb-1">
               {result.course_name}
             </h3>
-            <p className="text-xs mb-2">
-              From {result.start_date || "N/A"} to {result.end_date || "N/A"}
-            </p>
+            <p className="text-xs mb-2">From {result.result_year || "N/A"}</p>
           </div>
 
-          <div className="text-center mb-2">
+          {/* <div className="text-center mb-2">
             <h4 className="text-sm font-semibold mb-1 text-gray-700">
               Marks Obtained
             </h4>
@@ -102,7 +100,7 @@ const Certificate = () => {
             ) : (
               <p className="text-xs">No marks available for this result.</p>
             )}
-          </div>
+          </div> */}
         </main>
 
         {/* Footer */}
