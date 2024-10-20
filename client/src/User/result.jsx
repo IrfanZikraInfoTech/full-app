@@ -84,7 +84,7 @@ const Result = () => {
       </table>
       <div className="flex justify-between text-white items-center mb-6">
         <p className="font-bold text-xl">
-          Total Marks: {maxMarks}/{totalMarks}
+          Total Marks: {totalMarks}/{maxMarks}
         </p>
         <p className="font-bold text-xl">PASS IN GRADE: A</p>
       </div>
