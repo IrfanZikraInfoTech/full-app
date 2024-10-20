@@ -4,11 +4,12 @@ import footer from "./images/footer.png"; // Your footer image path
 
 const AdminResult = ({ studentInfo, resultData }) => {
   const totalMarks = resultData.reduce(
-    (total, item) => total + item.obtainedMarks,
+    (total, item) => total + Number(item.obtainedMarks), // Ensure obtainedMarks is treated as a number
     0
   );
+
   const totalMaxMarks = resultData.reduce(
-    (total, item) => total + item.maxMarks,
+    (total, item) => total + Number(item.maxMarks), // Ensure maxMarks is treated as a number
     0
   );
 
@@ -81,7 +82,7 @@ const AdminResult = ({ studentInfo, resultData }) => {
 
         <div className="text-right mb-8">
           <p className="font-semibold">
-            Total Marks: {totalMarks} / {totalMaxMarks}
+            Total Marks: {totalMaxMarks}/{totalMarks}
           </p>
         </div>
 
