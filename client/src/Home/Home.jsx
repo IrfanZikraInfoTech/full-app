@@ -16,7 +16,7 @@ const Home = () => (
           to="/user"
           className="bg-white text-purple-500 px-6 py-3 rounded-full font-semibold hover:bg-purple-100 transition duration-300"
         >
-          USER
+          Result
         </Link>
         <Link
           to="/login"
