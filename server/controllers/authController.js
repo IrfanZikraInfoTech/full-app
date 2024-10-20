@@ -6,57 +6,58 @@ const Result = require("../models/Result"); // Result model
 
 // Signup function
 exports.signup = async (req, res) => {
-  const { name, email, password, role, securityQuestion, securityAnswer } =
-    req.body;
+  const { name, email, password, securityAnswer } = req.body;
 
   try {
-    // Check if the user already exists
-    const existingUser = await User.findOne({ email });
+    // Check if a user already exists
+    const existingUser = await User.findOne();
 
     if (existingUser) {
-      // If the user exists, ask for security answer verification
-      if (!req.body.securityAnswer || !securityQuestion) {
+      // If user exists, check the security answer for replacement
+      if (!securityAnswer) {
         return res.status(400).json({
           error:
-            "User already exists. Please provide the security question and answer to replace the existing user.",
-          securityQuestion: existingUser.securityQuestion, // Return the question to the frontend
+            "User already exists. Please provide the security answer to replace the existing user.",
+          securityQuestion: existingUser.securityQuestion, // Return the fixed security question
         });
       }
 
       // Compare the security answer
       const isAnswerCorrect = await existingUser.compareSecurityAnswer(
-        req.body.securityAnswer
+        securityAnswer
       );
 
       if (!isAnswerCorrect) {
-        return res.status(401).json({ error: "Incorrect security answer." });
+        return res
+          .status(401)
+          .json({
+            error:
+              "Incorrect security answer. Cannot replace the existing user.",
+          });
       }
 
-      // If the security answer matches, replace the user with the new details
+      // If the security answer matches, replace the user
       existingUser.name = name;
-      existingUser.password = password; // Will be re-hashed due to the pre-save middleware
-      existingUser.securityQuestion = securityQuestion;
-      existingUser.securityAnswer = securityAnswer;
-      existingUser.role = role || "user"; // Update role if provided
+      existingUser.email = email;
+      existingUser.password = password; // Password will be hashed via pre-save hook
+      existingUser.securityAnswer = securityAnswer; // Update security answer
 
-      await existingUser.save(); // Save the updated user
+      await existingUser.save(); // Save updated user details
       return res.status(200).json({ message: "User replaced successfully." });
     }
 
-    // If user doesn't exist, create a new user
+    // If no user exists, create a new one
     const user = new User({
       name,
       email,
       password,
-      role: role || "user",
-      securityQuestion,
-      securityAnswer, // This will be hashed by the pre-save middleware
+      securityAnswer, // This will be hashed by the pre-save hook
     });
 
     await user.save(); // Save the new user to MongoDB
     res.status(201).json({ message: "User registered successfully." });
   } catch (err) {
-    console.error("Error during signup:", err); // Log the actual error
+    console.error("Error during signup:", err); // Log the error
     res.status(400).json({ error: err.message || "Signup failed" });
   }
 };
