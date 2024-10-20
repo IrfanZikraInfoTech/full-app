@@ -6,58 +6,24 @@ const Result = require("../models/Result"); // Result model
 
 // Signup function
 exports.signup = async (req, res) => {
-  const { name, email, password, securityAnswer } = req.body;
+  const { name, email, password, role } = req.body;
 
   try {
-    // Check if a user already exists
-    const existingUser = await User.findOne();
-
+    // Check if the user already exists
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      // If user exists, check the security answer for replacement
-      if (!securityAnswer) {
-        return res.status(400).json({
-          error:
-            "User already exists. Please provide the security answer to replace the existing user.",
-          securityQuestion: existingUser.securityQuestion, // Return the fixed security question
-        });
-      }
-
-      // Compare the security answer
-      const isAnswerCorrect = await existingUser.compareSecurityAnswer(
-        securityAnswer
-      );
-
-      if (!isAnswerCorrect) {
-        return res
-          .status(401)
-          .json({
-            error:
-              "Incorrect security answer. Cannot replace the existing user.",
-          });
-      }
-
-      // If the security answer matches, replace the user
-      existingUser.name = name;
-      existingUser.email = email;
-      existingUser.password = password; // Password will be hashed via pre-save hook
-      existingUser.securityAnswer = securityAnswer; // Update security answer
-
-      await existingUser.save(); // Save updated user details
-      return res.status(200).json({ message: "User replaced successfully." });
+      return res.status(400).json({ error: "User already exists" });
     }
 
-    // If no user exists, create a new one
-    const user = new User({
-      name,
-      email,
-      password,
-      securityAnswer, // This will be hashed by the pre-save hook
-    });
+    // Create a new user
+    const user = new User({ name, email, password, role: role || "user" });
 
-    await user.save(); // Save the new user to MongoDB
-    res.status(201).json({ message: "User registered successfully." });
+    // Save the user to MongoDB
+    await user.save();
+
+    res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
-    console.error("Error during signup:", err); // Log the error
+    console.error("Error during signup:", err); // Log the actual error
     res.status(400).json({ error: err.message || "Signup failed" });
   }
 };
